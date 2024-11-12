@@ -31,8 +31,8 @@ BEGIN
 
     clk_s <= NOT clk_s AFTER ClockPeriod / 2;
 
-    input_s <=  x"FF", 
-                x"1F" AFTER ClockPeriod, 
+    input_s <=  x"1F", 
+                x"1E" AFTER ClockPeriod, 
                 x"1D" AFTER 2 * ClockPeriod, 
                 x"1C" AFTER 3 * ClockPeriod,
                 x"1B" AFTER 4 * ClockPeriod,
