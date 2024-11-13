@@ -25,14 +25,14 @@ BEGIN
 
     -- Testing plan:
     --      from 0 to 25 ps the value of output should be 0
-    --      on the next rising edge of clk output should be 0,  because c0 is 1
-    --      on the next rising edge of clk output should be 0,  because c0 is 1
-    --      on the next rising edge of clk output should be 1,  because c5 is 1
-    --      on the next rising edge of clk output should be 2,  because c5 is 1
-    --      on the next rising edge of clk output should be 3,  because c5 is 1
-    --      on the next rising edge of clk output should be 0,  because c5 is 1
-    --      on the next rising edge of clk output should be 1,  because c5 is 1
-    --      on the next rising edge of clk output should be 0,  because c0 is 1
+    --      on the next rising edge of clk output should be 0,  because c0 is 1 (check)
+    --      on the next rising edge of clk output should be 0,  because c0 is 1 (check)
+    --      on the next rising edge of clk output should be 1,  because c5 is 1 (check)
+    --      on the next rising edge of clk output should be 2,  because c5 is 1 (check)
+    --      on the next rising edge of clk output should be 3,  because c5 is 1 (check)
+    --      on the next rising edge of clk output should be 0,  because c5 is 1 (check)
+    --      on the next rising edge of clk output should be 1,  because c5 is 1 (check)
+    --      on the next rising edge of clk output should be 0,  because c0 is 1 (check)
 
     clk_s <= NOT clk_s AFTER ClockPeriod / 2;
 
