@@ -16,11 +16,11 @@ BEGIN
     mux: Mux2to1 PORT MAP(M_s, dM_s, c3_s, result_s);
 	
 	-- Testing plan:
-	-- 		In the first 200ps the output should be 0xFF  	because c3_s is 0 	(check)
-	--		After the first 200ps the output should be 0xAA	because c3_s is 1	(check)
+	-- 		In the first 200ps the output should be 0x1FF 	 	because c3_s is 0 	(check)
+	--		After the first 200ps the output should be 0x155	because c3_s is 1	(check)
 
-	M_s  <= x"FF";
-	dM_s <= x"AA";
+	M_s  <= "111111111";
+	dM_s <= "101010101";
 
 	c3_s <= '0', 
 			'1' AFTER 200 ps;
