@@ -23,6 +23,6 @@ BEGIN
 	dM_s <= "101010101";
 
 	c3_s <=	'0', 
-			'1' AFTER 200 ps;
+		'1' AFTER 200 ps;
 	
 END t;
