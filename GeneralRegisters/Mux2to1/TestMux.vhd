@@ -1,22 +1,28 @@
-entity test is	
-end test;
+ENTITY test IS
+END test;
 
-architecture t of test is	
-	component Mux2to1 is  
-		port(
-            M, dM: in bit_vector(8 downto 0);
-            c3: in bit;
-            result: out bit_vector(8 downto 0)
+ARCHITECTURE t OF test IS	
+	COMPONENT Mux2to1 IS
+		PORT(
+            M, dM: IN bit_vector(8 DOWNTO 0);
+            c3: IN bit;
+            result: OUT bit_vector(8 DOWNTO 0)
         );
-	end component;
-	signal c3_s: bit := '0'; 	  
-	signal M_s, dM_s, result_s: bit_vector(8 downto 0);
+	END COMPONENT;
+	SIGNAL c3_s: bit := '0'; 	  
+	SIGNAL M_s, dM_s, result_s: bit_vector(8 DOWNTO 0);
 
-begin
+BEGIN
     mux: Mux2to1 PORT MAP(M_s, dM_s, c3_s, result_s);
-  
-	M_s <= "111111111";
-	dM_s <= "010101010";
-	c3_s <= '0', '1' AFTER 200 ps;
 	
-end t;
+	-- Testing plan:
+	-- 		In the first 200ps the output should be 0x1FF 	 	because c3_s is 0 	(check)
+	--		After the first 200ps the output should be 0x155	because c3_s is 1	(check)
+
+	M_s  <= "111111111";
+	dM_s <= "101010101";
+
+	c3_s <=	'0', 
+		'1' AFTER 200 ps;
+	
+END t;

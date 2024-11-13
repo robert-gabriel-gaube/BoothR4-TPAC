@@ -2,19 +2,19 @@ ENTITY test IS
 END test;
 
 ARCHITECTURE t OF test IS
-    component RegM is 
+    COMPONENT RegM IS 
         PORT(
-            clk, rst_b, c0: in bit;
-            input: in bit_vector(7 downto 0);
-            output: out bit_vector(7 downto 0)
+            clk, rst_b, c0: IN bit;
+            input: IN bit_vector(7 DOWNTO 0);
+            output: OUT bit_vector(7 DOWNTO 0)
         );
-    end component;
+    END COMPONENT;
 
-    constant ClockFrequency : integer := 1; -- 1 Hz
-    constant ClockPeriod    : time    := 100 ps / ClockFrequency;
+    CONSTANT ClockFrequency : integer := 1; -- 1 Hz
+    CONSTANT ClockPeriod    : time    := 100 ps / ClockFrequency;
 
-    signal clk_s, rst_b_s, c0_s: bit;
-    signal input_s, output_s: bit_vector(7 downto 0);
+    SIGNAL clk_s, rst_b_s, c0_s: bit;
+    SIGNAL input_s, output_s: bit_vector(7 DOWNTO 0);
 
 BEGIN
 

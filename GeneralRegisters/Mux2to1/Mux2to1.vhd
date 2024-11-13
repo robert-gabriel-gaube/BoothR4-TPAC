@@ -1,10 +1,10 @@
-entity Mux2to1 is  
+ENTITY Mux2to1 IS
 	port(
-        M, dM: in bit_vector(8 downto 0);
-        c3: in bit;
-        result: out bit_vector(8 downto 0)
+        M, dM: IN bit_vector(8 DOWNTO 0);
+        c3: IN bit;
+        result: OUT bit_vector(8 DOWNTO 0)
     );
-end Mux2to1;
+END Mux2to1;
 
 ARCHITECTURE impl OF Mux2to1 IS
 BEGIN
