@@ -1,16 +1,20 @@
+LIBRARY ieee;
+USE ieee.std_logic_1164.ALL;
+USE ieee.numeric_std.ALL;
+
 ENTITY test IS
 END test;
 
 ARCHITECTURE t OF test IS	
 	COMPONENT Mux2to1 IS
 		PORT(
-            M, dM: IN bit_vector(8 DOWNTO 0);
-            c3: IN bit;
-            result: OUT bit_vector(8 DOWNTO 0)
-        );
+			M, dM: IN std_logic_vector(8 DOWNTO 0);
+			c3: IN std_logic;
+			result: OUT std_logic_vector(8 DOWNTO 0)
+		);
 	END COMPONENT;
-	SIGNAL c3_s: bit := '0'; 	  
-	SIGNAL M_s, dM_s, result_s: bit_vector(8 DOWNTO 0);
+	SIGNAL c3_s: std_logic := '0'; 	  
+	SIGNAL M_s, dM_s, result_s: std_logic_vector(8 DOWNTO 0);
 
 BEGIN
     mux: Mux2to1 PORT MAP(M_s, dM_s, c3_s, result_s);
