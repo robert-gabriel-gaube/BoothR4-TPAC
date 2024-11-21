@@ -10,7 +10,6 @@ END RegA;
 ARCHITECTURE impl OF RegA IS
     SIGNAL out_internal: bit_vector(8 downto 0);  -- internal signal to hold out_result data
 BEGIN
-    -- Drive the output port
     output <= out_internal;
 
     PROCESS(clk, rst_b, c0, c5, c2, adder_input)  
@@ -28,13 +27,12 @@ BEGIN
         END IF;
     END PROCESS;
     
-    PROCESS(c6)  -- Sensitivity list includes all signals read in the process
+    PROCESS(c6)  
     BEGIN
         IF c6 = '1' THEN
-            -- Convert out_internal (bit_vector) to std_logic_vector and assign 'Z'
             outbus(16 DOWNTO 8) <= out_internal; 
         ELSE
-            outbus <= (others => '0');  -- Set all bits of outbus to high-impedance 'Z'
+            outbus <= (others => '0'); 
         END IF;
     END PROCESS;
     

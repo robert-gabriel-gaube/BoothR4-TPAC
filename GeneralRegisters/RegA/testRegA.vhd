@@ -15,7 +15,7 @@ ARCHITECTURE tb OF test_RegA IS
         );
     END COMPONENT;
 
-    CONSTANT ClockFrequency : integer := 1; -- 1 Hz for easy observation
+    CONSTANT ClockFrequency : integer := 1; -- 1 Hz 
     CONSTANT ClockPeriod    : time    := 100 ps / ClockFrequency;
 
     SIGNAL clk_s, rst_b_s, c0_s, c5_s, c2_s, c6_s: bit;
@@ -24,8 +24,6 @@ ARCHITECTURE tb OF test_RegA IS
     SIGNAL outbus_s: bit_vector(16 DOWNTO 0);
 
 BEGIN
-
-    -- Instantiate the RegA component
     regA_inst : RegA PORT MAP (
         clk         => clk_s,
         rst_b       => rst_b_s,
@@ -41,7 +39,6 @@ BEGIN
     -- Clock Generation
     clk_s <= NOT clk_s AFTER ClockPeriod / 2;
 
-    -- Stimulus process
     stim_proc: PROCESS
     BEGIN
         -- Initial reset
@@ -50,44 +47,42 @@ BEGIN
         rst_b_s <= '1';  -- Release reset
 
         -- Test sequence
-        -- Load 0x1F into adder_input, set c0, c2, c5, and c6 as necessary
-        adder_input_s <= b"000100001";
-        c0_s <= '1'; c2_s <= '0'; c5_s <= '0'; c6_s <= '0';
+        -- Load '000100011' into adder_input, set c0, c2, c5, and c6 as necessary
+        adder_input_s <= b"000100011";
+        c0_s <= '1'; c2_s <= '0'; c5_s <= '0'; c6_s <= '0'; -- output should be equal to 0
         WAIT FOR ClockPeriod;
     
         -- Set c2_s to put the adder input in the out_internal
-        c0_s <= '0'; c2_s <= '1'; c5_s <= '0'; c6_s <= '0';
+        c0_s <= '0'; c2_s <= '1'; c5_s <= '0'; c6_s <= '0'; -- output should be equal to adder_input
         WAIT FOR ClockPeriod;
 
         -- Perform a shift operation with c5 high
-        c0_s <= '0'; c2_s <= '0'; c5_s <= '1'; c6_s <= '0';
+        c0_s <= '0'; c2_s <= '0'; c5_s <= '1'; c6_s <= '0'; -- output should be equal to output[8][8][8-2] (shift to the right with 2 bits)
         WAIT FOR ClockPeriod;
 
         -- Set c6 to 1 to enable outbus output with current `out_internal` value
-        c0_s <= '0'; c2_s <= '0'; c5_s <= '0'; c6_s <= '1';
+        c0_s <= '0'; c2_s <= '0'; c5_s <= '0'; c6_s <= '1'; -- outbus should be equal to output
         WAIT FOR ClockPeriod;
 
         -- Set c6 back to 0, outbus should go to zero
-        c0_s <= '0'; c2_s <= '0'; c5_s <= '0'; c6_s <= '0';
+        c0_s <= '0'; c2_s <= '0'; c5_s <= '0'; c6_s <= '0'; --outbus should be equal to 0 (reset)
         WAIT FOR ClockPeriod;
 
         -- Test other values with different c0, c2, and c5 combinations
-        --adder_input_s <= b"000000011";  -- New input for loading
-        c0_s <= '1'; c2_s <= '0'; c5_s <= '0'; c6_s <= '0';
+        c0_s <= '1'; c2_s <= '0'; c5_s <= '0'; c6_s <= '0'; -- output should be equal to 0
         WAIT FOR ClockPeriod;
 
-        c0_s <= '0'; c2_s <= '1'; c5_s <= '0'; c6_s <= '0';
+        c0_s <= '0'; c2_s <= '1'; c5_s <= '0'; c6_s <= '0'; -- output should be equal to adder_input
         WAIT FOR ClockPeriod;
 
         -- Test with another shift
-        c0_s <= '0'; c2_s <= '0'; c5_s <= '1'; c6_s <= '0';
+        c0_s <= '0'; c2_s <= '0'; c5_s <= '1'; c6_s <= '1'; -- output will be shifted to the right by 2 bits, and the outbus should be equal to output
         WAIT FOR ClockPeriod;
 
-        -- Final hold state
-        c0_s <= '0'; c2_s <= '0'; c5_s <= '0'; c6_s <= '0';
+        -- Test for reseting the output and outbus
+        rst_b_s <= '0';c0_s <= '0'; c2_s <= '0'; c5_s <= '0'; c6_s <= '0';
         WAIT FOR ClockPeriod;
 
-        -- End simulation
         WAIT;
     END PROCESS stim_proc;
 
