@@ -8,7 +8,7 @@ ENTITY RegA IS
 END RegA;
 
 ARCHITECTURE impl OF RegA IS
-    SIGNAL out_internal: bit_vector(8 downto 0);  -- internal signal to hold out_result data
+    SIGNAL out_internal: bit_vector(8 DOWNTO 0);  -- internal signal to hold out_result data
 BEGIN
     output <= out_internal;
 
