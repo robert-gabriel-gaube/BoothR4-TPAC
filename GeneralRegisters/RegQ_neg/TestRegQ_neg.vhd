@@ -56,7 +56,7 @@ BEGIN
         c0_s <= '0'; c5_s <= '1'; q1_s <= '1'; -- output should be equal to q1
         WAIT FOR ClockPeriod;
                 
-        -- Test for reseting the output and outbus
+        -- Test for reseting the output
         rst_b_s <= '0';c0_s <= '1'; c5_s <= '1';
         WAIT FOR ClockPeriod;
 
