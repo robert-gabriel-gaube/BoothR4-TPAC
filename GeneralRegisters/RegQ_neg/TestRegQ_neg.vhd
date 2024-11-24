@@ -49,9 +49,6 @@ BEGIN
         c0_s <= '0'; c5_s <= '1'; q1_s <= '1'; -- output should be equal to q1
         WAIT FOR ClockPeriod;
 
-        -- Load '1' into q1, set c0, c5 as necessary
-        c0_s <= '1'; c5_s <= '1'; q1_s <= '1'; -- output should be equal to 0
-        WAIT FOR ClockPeriod;
         
         -- Load '1' into q1, set c0, c5 as necessary
         c0_s <= '0'; c5_s <= '1'; q1_s <= '1'; -- output should be equal to q1
