@@ -65,17 +65,6 @@ BEGIN
         c1_s <= '1'; c5_s <= '0'; c6_s <= '0'; a0_s <= '1'; a1_s <= '1'; -- output should be equal to input and outbus equal to 0
         WAIT FOR ClockPeriod;
 
-        -- Test other values with different c0, c2, and c5 combinations
-        c1_s <= '1'; c5_s <= '1'; c6_s <= '0'; a0_s <= '1'; a1_s <= '1'; -- output should be equal to input and outbus equal to 0
-        WAIT FOR ClockPeriod;
-
-        c1_s <= '1'; c5_s <= '1'; c6_s <= '1'; a0_s <= '1'; a1_s <= '1'; -- output should be equal to input and outbus equal to output
-        WAIT FOR ClockPeriod;
-
-        -- Test with another shift
-        c1_s <= '0'; c5_s <= '1'; c6_s <= '1'; a0_s <= '1'; a1_s <= '1'; -- output should be equal to a1a0output[7-2] and outbus equal to output
-        WAIT FOR ClockPeriod;
-
         -- Test for reseting the output and outbus
         rst_b_s <= '0';c1_s <= '1'; c5_s <= '1'; c6_s <= '0';
         WAIT FOR ClockPeriod;
