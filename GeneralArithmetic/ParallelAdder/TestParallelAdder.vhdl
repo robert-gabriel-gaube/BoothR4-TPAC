@@ -26,7 +26,6 @@ BEGIN
         out_add => out_add_s
     );
 
-    -- Proces pentru generarea stimulilor de test
     proc: PROCESS
     BEGIN
         -- Test 1: a = "000000001", b = "000000010", cin = '0'
