@@ -13,7 +13,8 @@ ARCHITECTURE tb OF TestControlUnit IS
             bgn : IN std_logic;
             q1, q0, q : IN std_logic;
             is_count_3 : IN std_logic;
-            c0, c1, c2, c3, c4, c5, c6, done : OUT std_logic
+            c0, c1, c2, c3, c4, c5, c6, done : OUT std_logic;
+            state_out : OUT std_logic_vector(3 downto 0)
         );
     END COMPONENT;
 
@@ -23,8 +24,9 @@ ARCHITECTURE tb OF TestControlUnit IS
     SIGNAL q1_s, q0_s, q_s : std_logic := '0';
     SIGNAL is_count_3_s : std_logic := '0';
     SIGNAL c0_s, c1_s, c2_s, c3_s, c4_s, c5_s, c6_s, done_s : std_logic;
+    SIGNAL state_s : std_logic_vector(3 downto 0);
 
-    CONSTANT clk_period : time := 10 ns;
+    CONSTANT clk_period : time := 100 ps;
 
 BEGIN
     cu: ControlUnit
@@ -43,7 +45,8 @@ BEGIN
             c4 => c4_s,
             c5 => c5_s,
             c6 => c6_s,
-            done => done_s
+            done => done_s,
+            state_out => state_s
         );
 
     clk_process: PROCESS
@@ -59,7 +62,7 @@ BEGIN
     test: PROCESS
     BEGIN
         -- Test 1: Reset activ
-        -- Rezultate a?teptate: FSM în S0. Toate ie?irile = '0'.
+        -- Rezultate a?teptate: FSM ï¿½n S0. Toate ie?irile = '0'.
         rst_b_s <= '0';
         WAIT FOR clk_period;
         rst_b_s <= '1';
@@ -67,66 +70,66 @@ BEGIN
 
         -- Test 2: Activare cu bgn
         -- Rezultate a?teptate:
-        -- În S1: c0 = '1', c1-c6 = '0', done = '0'.
-        -- În S2: c1 = '1', restul '0'.
+        -- ï¿½n S1: c0 = '1', c1-c6 = '0', done = '0'.
+        -- ï¿½n S2: c1 = '1', restul '0'.
         bgn_s <= '1';
         WAIT FOR clk_period;
 
-        -- Test 3: Tranzi?ie în S3
-        -- Rezultate a?teptate: FSM în S3, toate ie?irile = '0'.
+        -- Test 3: Tranzi?ie ï¿½n S3
+        -- Rezultate a?teptate: FSM ï¿½n S3, toate ie?irile = '0'.
         WAIT FOR clk_period;
 
-        -- Test 4: Tranzi?ie în S4
-        -- Rezultate a?teptate: FSM în S4, c2 = '1', restul '0'.
+        -- Test 4: Tranzi?ie ï¿½n S4
+        -- Rezultate a?teptate: FSM ï¿½n S4, c2 = '1', restul '0'.
         q1_s <= '0';
         q0_s <= '0';
         q_s <= '1';
         WAIT FOR clk_period;
 
-        -- Test 5: Tranzi?ie în S5
-        -- Rezultate a?teptate: FSM în S5, c2 = '1', c4 = '1', restul '0'.
+        -- Test 5: Tranzi?ie ï¿½n S5
+        -- Rezultate a?teptate: FSM ï¿½n S5, c2 = '1', c4 = '1', restul '0'.
         q1_s <= '1';
         q0_s <= '1';
         q_s <= '0';
-        WAIT FOR clk_period;
+        WAIT FOR 2 * clk_period;
 
-        -- Test 6: Tranzi?ie în S6
-        -- Rezultate a?teptate: FSM în S6, c2 = '1', c3 = '1', restul '0'.
+        -- Test 6: Tranzi?ie ï¿½n S6
+        -- Rezultate a?teptate: FSM ï¿½n S6, c2 = '1', c3 = '1', restul '0'.
         q1_s <= '0';
         q0_s <= '1';
         q_s <= '1';
         WAIT FOR clk_period;
 
-        -- Test 7: Tranzi?ie în S7
-        -- Rezultate a?teptate: FSM în S7, c2 = '1', c3 = '1', c4 = '1', restul '0'.
+        -- Test 7: Tranzi?ie ï¿½n S7
+        -- Rezultate a?teptate: FSM ï¿½n S7, c2 = '1', c3 = '1', c4 = '1', restul '0'.
         q1_s <= '1';
         q0_s <= '0';
         q_s <= '0';
         WAIT FOR clk_period;
 
-        -- Test 8: Tranzi?ie în S8
-        -- Rezultate a?teptate: FSM în S8, toate ie?irile = '0'.
+        -- Test 8: Tranzi?ie ï¿½n S8
+        -- Rezultate a?teptate: FSM ï¿½n S8, toate ie?irile = '0'.
         q1_s <= '0';
         q0_s <= '0';
         q_s <= '0';
         WAIT FOR clk_period;
 
-        -- Test 9: Tranzi?ie în S9
-        -- Rezultate a?teptate: FSM în S9, c5 = '1', restul '0'.
+        -- Test 9: Tranzi?ie ï¿½n S9
+        -- Rezultate a?teptate: FSM ï¿½n S9, c5 = '1', restul '0'.
         WAIT FOR clk_period;
 
         -- Test 10: Tranzi?ie la S10
-        -- Rezultate a?teptate: FSM în S10, c6 = '1', done = '1', restul '0'.
+        -- Rezultate a?teptate: FSM ï¿½n S10, c6 = '1', done = '1', restul '0'.
         is_count_3_s <= '1';
         WAIT FOR clk_period;
 
         -- Test 11: Revenire la S0
-        -- Rezultate a?teptate: FSM în S0, toate ie?irile = '0'.
+        -- Rezultate a?teptate: FSM ï¿½n S0, toate ie?irile = '0'.
         bgn_s <= '0';
         is_count_3_s <= '0';
         WAIT FOR clk_period;
 
-        -- Încheierea simul?rii
+        -- ï¿½ncheierea simul?rii
         WAIT;
     END PROCESS;
 

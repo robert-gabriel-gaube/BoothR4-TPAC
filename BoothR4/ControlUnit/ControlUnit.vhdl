@@ -9,14 +9,26 @@ ENTITY ControlUnit IS
         bgn : IN std_logic;
         q1, q0, q : IN std_logic;
         is_count_3 : IN std_logic;
-        c0, c1, c2, c3, c4, c5, c6, done : OUT std_logic
+        c0, c1, c2, c3, c4, c5, c6, done : OUT std_logic;
+        state_out : OUT std_logic_vector(3 downto 0)
     );
 END ControlUnit;
 
 ARCHITECTURE impl OF ControlUnit IS
-    TYPE state_type IS (S0, S1, S2, S3, S4, S5, S6, S7, S8, S9, S10);
-    SIGNAL state, state_next : state_type;
-    SIGNAL operation_state : state_type;
+    CONSTANT S0 : std_logic_vector(3 downto 0) := "0000";
+    CONSTANT S1 : std_logic_vector(3 downto 0) := "0001";
+    CONSTANT S2 : std_logic_vector(3 downto 0) := "0010";
+    CONSTANT S3 : std_logic_vector(3 downto 0) := "0011";
+    CONSTANT S4 : std_logic_vector(3 downto 0) := "0100";
+    CONSTANT S5 : std_logic_vector(3 downto 0) := "0101";
+    CONSTANT S6 : std_logic_vector(3 downto 0) := "0110";
+    CONSTANT S7 : std_logic_vector(3 downto 0) := "0111";
+    CONSTANT S8 : std_logic_vector(3 downto 0) := "1000";
+    CONSTANT S9 : std_logic_vector(3 downto 0) := "1001";
+    CONSTANT S10 : std_logic_vector(3 downto 0) := "1010";
+
+    SIGNAL state, state_next : std_logic_vector(3 downto 0);
+    SIGNAL operation_state : std_logic_vector(3 downto 0);
     
     SIGNAL q_vector : std_logic_vector(2 downto 0);
     
@@ -76,6 +88,8 @@ BEGIN
     c5 <= '1' WHEN state = S9 ELSE '0';
     c6 <= '1' WHEN state = S10 ELSE '0';
     done <= '1' WHEN state = S10 ELSE '0';
+
+    state_out <= state;
 
     PROCESS(clk, rst_b)
     BEGIN
