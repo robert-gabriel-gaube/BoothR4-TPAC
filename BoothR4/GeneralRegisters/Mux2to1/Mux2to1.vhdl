@@ -5,8 +5,8 @@ USE ieee.numeric_std.ALL;
 ENTITY Mux2to1 IS
 	PORT(
         M, dM: IN std_logic_vector(8 DOWNTO 0);
-        c3: IN std_logic;
-        result: OUT std_logic_vector(8 DOWNTO 0)
+        c3:    IN std_logic;
+        output: OUT std_logic_vector(8 DOWNTO 0)
     );
 END Mux2to1;
 
@@ -15,9 +15,9 @@ BEGIN
     PROCESS(M, dM, c3)
     BEGIN
         IF c3 = '0' THEN 
-            result <= M;
+            output <= M;
         ELSE 
-            result <= dM;
+            output <= dM;
         END IF;
     END PROCESS;
 END;

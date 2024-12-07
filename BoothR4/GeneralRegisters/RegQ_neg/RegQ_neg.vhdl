@@ -1,12 +1,15 @@
+LIBRARY ieee;
+USE ieee.std_logic_1164.ALL;
+
 ENTITY RegQ_neg IS
     PORT(
-      clk, rst_b, c0, c5, q1: IN bit;
-      output: OUT bit
+      clk, rst_b, c0, c5, q1: IN std_logic;
+      output: OUT std_logic
     );
 END RegQ_neg;
 
 ARCHITECTURE impl OF RegQ_neg IS
-    SIGNAL out_internal: bit;  -- internal signal to hold output data
+    SIGNAL out_internal: std_logic;  -- internal signal to hold output data
 BEGIN
     output <= out_internal;
 

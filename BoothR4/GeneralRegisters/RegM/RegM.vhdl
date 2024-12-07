@@ -5,7 +5,7 @@ USE ieee.numeric_std.ALL;
 ENTITY RegM IS
     PORT(
         clk, rst_b, c0: IN std_logic;
-        input: IN std_logic_vector(7 DOWNTO 0);
+        input:  IN  std_logic_vector(7 DOWNTO 0);
         output: OUT std_logic_vector(7 DOWNTO 0)
     );
 END RegM;

@@ -1,14 +1,17 @@
+LIBRARY ieee;
+USE ieee.std_logic_1164.ALL;
+
 ENTITY RegQ IS
     PORT(
-      clk, rst_b, c5, c1, a0, a1, c6: IN bit;
-      input: IN bit_vector(7 DOWNTO 0);
-      output: OUT bit_vector(7 DOWNTO 0);
-      outbus: OUT bit_vector(16 DOWNTO 0)
+      clk, rst_b, c5, c1, a0, a1, c6: IN std_logic;
+      input:  IN  std_logic_vector( 7 DOWNTO 0);
+      output: OUT std_logic_vector( 7 DOWNTO 0);
+      outbus: OUT std_logic_vector(16 DOWNTO 0)
     );
 END RegQ;
 
 ARCHITECTURE impl OF RegQ IS
-    SIGNAL out_internal: bit_vector(7 DOWNTO 0);  -- internal signal to hold out_result data
+    SIGNAL out_internal: std_logic_vector(7 DOWNTO 0);  -- internal signal to hold out_result data
 BEGIN
     output <= out_internal;
 

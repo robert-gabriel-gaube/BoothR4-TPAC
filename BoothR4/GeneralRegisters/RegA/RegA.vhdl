@@ -1,14 +1,17 @@
+LIBRARY ieee;
+USE ieee.std_logic_1164.ALL;
+
 ENTITY RegA IS
     PORT(
-      clk, rst_b, c0, c5, c2, c6: IN bit;
-      adder_input: IN bit_vector(8 DOWNTO 0);
-      output: OUT bit_vector(8 DOWNTO 0);
-      outbus: OUT bit_vector(16 DOWNTO 0)
+      clk, rst_b, c0, c5, c2, c6: IN std_logic;
+      adder_input: IN std_logic_vector(8 DOWNTO 0);
+      output: OUT std_logic_vector( 8 DOWNTO 0);
+      outbus: OUT std_logic_vector(16 DOWNTO 0)
     );
 END RegA;
 
 ARCHITECTURE impl OF RegA IS
-    SIGNAL out_internal: bit_vector(8 DOWNTO 0);  -- internal signal to hold out_result data
+    SIGNAL out_internal: std_logic_vector(8 DOWNTO 0);  -- internal signal to hold out_result data
 BEGIN
     output <= out_internal;
 
