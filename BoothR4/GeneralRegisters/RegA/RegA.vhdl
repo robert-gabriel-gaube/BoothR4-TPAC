@@ -35,7 +35,7 @@ BEGIN
         IF c6 = '1' THEN
             outbus(16 DOWNTO 8) <= out_internal; 
         ELSE
-            outbus <= (others => '0'); 
+            outbus(16 DOWNTO 8) <= (others => '0'); 
         END IF;
     END PROCESS;
     

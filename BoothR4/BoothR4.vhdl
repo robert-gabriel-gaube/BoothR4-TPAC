@@ -17,7 +17,8 @@ ENTITY boothr4 IS
         rst_b  : IN std_logic;
         inbus  : IN std_logic_vector(7 DOWNTO 0);
         done   : OUT std_logic;
-        outbus : OUT std_logic_vector(16 DOWNTO 0)
+        outbus : OUT std_logic_vector(16 DOWNTO 0);
+        state  : OUT std_logic_vector( 3 DOWNTO 0)
     );
 END boothr4;
 
@@ -26,11 +27,12 @@ ARCHITECTURE impl OF boothr4 IS
     SIGNAL reg_a, adder_output, mux_out : std_logic_vector(8 DOWNTO 0);
     SIGNAL cnt : std_logic_vector(1 DOWNTO 0);
     SIGNAL c0, c1, c2, c3, c4, c5, c6 : std_logic;
-    SIGNAL q, is_count_3_signal : std_logic;
-    signal reg_m_extended : std_logic_vector(8 DOWNTO 0);
-    signal double_reg_m   : std_logic_vector(8 DOWNTO 0);
-    signal c4_extended    : std_logic_vector(8 DOWNTO 0);
-    signal negative_m     : std_logic_vector(8 DOWNTO 0);
+    SIGNAL q_neg, is_count_3_signal   : std_logic;
+    SIGNAL reg_m_extended : std_logic_vector(8 DOWNTO 0);
+    SIGNAL double_reg_m   : std_logic_vector(8 DOWNTO 0);
+    SIGNAL c4_extended    : std_logic_vector(8 DOWNTO 0);
+    SIGNAL negative_m     : std_logic_vector(8 DOWNTO 0);
+    SIGNAL state_out      : std_logic_vector(3 DOWNTO 0);
     
 BEGIN
     is_count_3_signal <= cnt(0) AND cnt(1);
@@ -39,6 +41,17 @@ BEGIN
     c4_extended       <= (OTHERS => c4);
     negative_m        <= mux_out XOR c4_extended;
 
+    state       <= state_out;      
+
+    inst8: ENTITY GeneralArithmeticLib.Count
+        PORT MAP (
+            clk    => clk,
+            rst_b  => rst_b,
+            c0     => c0,
+            c5     => c5,
+            output => cnt
+        );
+
     inst7: ENTITY ControlUnitLib.ControlUnit
         PORT MAP (
             clk         => clk,
@@ -46,7 +59,7 @@ BEGIN
             bgn         => bgn,
             q1          => reg_q(1),
             q0          => reg_q(0),
-            q           => q,
+            q           => q_neg,
             is_count_3  => is_count_3_signal,
             c0          => c0,
             c1          => c1,
@@ -55,7 +68,8 @@ BEGIN
             c4          => c4,
             c5          => c5,
             c6          => c6,
-            done        => done
+            done        => done,
+            state_out   => state_out
         );
 
     inst0: ENTITY GeneralRegistersLib.RegM
@@ -101,7 +115,7 @@ BEGIN
             c0      => c0,
             c5      => c5,
             q1      => reg_q(1),
-            output  => q
+            output  => q_neg
         );
 
     inst4: ENTITY GeneralRegistersLib.Mux2to1

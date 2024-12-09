@@ -9,7 +9,7 @@ ENTITY RegQ_neg IS
 END RegQ_neg;
 
 ARCHITECTURE impl OF RegQ_neg IS
-    SIGNAL out_internal: std_logic;  -- internal signal to hold output data
+    SIGNAL out_internal: std_logic;
 BEGIN
     output <= out_internal;
 
@@ -17,7 +17,7 @@ BEGIN
     BEGIN
         IF rst_b = '0' THEN
             out_internal <= '0';
-        ELSIF clk'event and clk = '1' THEN  -- Detect rising edge
+        ELSIF rising_edge(clk) THEN 
             IF c0 = '1' THEN
                 out_internal <= '0';
             ELSIF c5 = '1' THEN

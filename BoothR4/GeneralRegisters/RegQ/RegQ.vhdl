@@ -11,7 +11,7 @@ ENTITY RegQ IS
 END RegQ;
 
 ARCHITECTURE impl OF RegQ IS
-    SIGNAL out_internal: std_logic_vector(7 DOWNTO 0);  -- internal signal to hold out_result data
+    SIGNAL out_internal: std_logic_vector(7 DOWNTO 0);
 BEGIN
     output <= out_internal;
 
@@ -19,7 +19,7 @@ BEGIN
     BEGIN
         IF rst_b = '0' THEN
             out_internal <= (others => '0');
-        ELSIF clk'event and clk = '1' THEN  -- Detect rising edge
+        ELSIF rising_edge(clk) THEN 
             IF c1 = '1' THEN
                 out_internal <= input;
             ELSIF c5 = '1' THEN
@@ -33,7 +33,7 @@ BEGIN
         IF c6 = '1' THEN
             outbus(7 DOWNTO 0) <= out_internal; 
         ELSE
-            outbus <= (others => '0'); 
+            outbus(7 DOWNTO 0) <= (others => '0'); 
         END IF;
     END PROCESS;
     
