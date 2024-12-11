@@ -36,15 +36,14 @@ BEGIN
         outbus      => outbus_s
     );
 
-    -- Clock Generation
     clk_s <= NOT clk_s AFTER ClockPeriod / 2;
 
     stim_proc: PROCESS
     BEGIN
         -- Initial reset
         rst_b_s <= '0';
-        WAIT FOR 25 ps;  -- hold reset for 25 ps
-        rst_b_s <= '1';  -- Release reset
+        WAIT FOR 25 ps;
+        rst_b_s <= '1';
 
         -- Test sequence
         -- Load '000100011' into adder_input, set c0, c2, c5, and c6 as necessary

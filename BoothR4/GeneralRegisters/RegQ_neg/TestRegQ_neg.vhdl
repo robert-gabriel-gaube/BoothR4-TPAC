@@ -30,22 +30,20 @@ BEGIN
         output      => output_s
     );
 
-    -- Clock Generation
     clk_s <= NOT clk_s AFTER ClockPeriod / 2;
 
     stim_proc: PROCESS
     BEGIN
-        -- Initial reset
         rst_b_s <= '0';
-        WAIT FOR 25 ps;  -- hold reset for 25 ps
-        rst_b_s <= '1';  -- Release reset
+        WAIT FOR 25 ps;
+        rst_b_s <= '1';
 
         -- Test sequence
-        -- Load '1' into q1, set c0, c5 as necessary
+        -- Load '1' into q1, set c0
         c0_s <= '1'; c5_s <= '0'; q1_s <= '1'; -- output should be equal to 0
         WAIT FOR ClockPeriod;
     
-        -- Load '1' into q1, set c0, c5 as necessary
+        -- Load '1' into q1, set c5
         c0_s <= '0'; c5_s <= '1'; q1_s <= '1'; -- output should be equal to q1
         WAIT FOR ClockPeriod;
 

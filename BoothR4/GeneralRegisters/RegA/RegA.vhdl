@@ -11,7 +11,7 @@ ENTITY RegA IS
 END RegA;
 
 ARCHITECTURE impl OF RegA IS
-    SIGNAL out_internal: std_logic_vector(8 DOWNTO 0);  -- internal signal to hold out_result data
+    SIGNAL out_internal: std_logic_vector(8 DOWNTO 0);
 BEGIN
     output <= out_internal;
 
@@ -19,7 +19,7 @@ BEGIN
     BEGIN
         IF rst_b = '0' THEN
             out_internal <= (others => '0');
-        ELSIF clk'event and clk = '1' THEN  -- Detect rising edge
+        ELSIF rising_edge(clk) THEN
             IF c0 = '1' THEN
                 out_internal <= (others => '0');
             ELSIF c2 = '1' THEN
